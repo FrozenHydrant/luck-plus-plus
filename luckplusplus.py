@@ -17,7 +17,8 @@ class Main:
         
            
     def begin_main_loop(self):
-        self.animations.enqueue(GenericAnimation(AnimationInfo().set_health(Main.FPS).position(0, (Main.X/2-self.animations.LOADING_AAA_TEXTURE.get_rect()[2]/2, Main.Y)).position(Main.FPS, (Main.X/2-self.animations.LOADING_AAA_TEXTURE.get_rect()[2]/2, Main.Y/2-self.animations.LOADING_AAA_TEXTURE.get_rect()[3]/2)).image(0, self.animations.LOADING_AAA_TEXTURE)))
+        self.animations.enqueue(GenericAnimation(AnimationInfo().set_health(Main.FPS*3.5).position(0, (Main.X/2-self.animations.LOADING_AAA_TEXTURE.get_rect()[2]/2, Main.Y)).position(Main.FPS, (Main.X/2-self.animations.LOADING_AAA_TEXTURE.get_rect()[2]/2, Main.Y/2-self.animations.LOADING_AAA_TEXTURE.get_rect()[3]/2)).scale(Main.FPS*3, (1, 1)).scale(Main.FPS*3.2, (1.1, 1.1)).scale(Main.FPS*3.5, (0, 0)).image(0, self.animations.LOADING_AAA_TEXTURE)))
+        self.animations.enqueue(GenericAnimation(AnimationInfo().set_health(Main.FPS*3.5).position(0, (Main.X/2-self.animations.DOT_TEXTURE.get_rect()[2]/2, Main.Y)).position(Main.FPS, (Main.X/2-self.animations.DOT_TEXTURE.get_rect()[2]/2, 7*Main.Y/10-self.animations.DOT_TEXTURE.get_rect()[3]/2)).position(Main.FPS*3, (Main.X/2-self.animations.DOT_TEXTURE.get_rect()[2]*10, 7*Main.Y/10-self.animations.DOT_TEXTURE.get_rect()[3]/2)).scale(Main.FPS, (1, 1)).scale(Main.FPS*3, (20,1)).scale(Main.FPS*3.2, (20.1, 1.1)).scale(Main.FPS*3.5, (0, 0)).image(0, self.animations.DOT_TEXTURE)))
         while self.running:
             # poll for events
             # pygame.QUIT event means the user clicked X to close your window

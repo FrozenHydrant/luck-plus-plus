@@ -19,6 +19,9 @@ class Animations():
         print("MISSING_TEXTURE", Animations.MISSING_TEXTURE)
         Animations.LOADING_AAA_TEXTURE = pygame.Surface.convert(pygame.transform.smoothscale(pygame.image.load(os.path.join('assets', 'aaa.png')), (bound/2.5, bound/2.5)))
         print("LOADING_AAA_TEXTURE", Animations.LOADING_AAA_TEXTURE)
+        Animations.DOT_TEXTURE = pygame.Surface.convert_alpha(pygame.transform.smoothscale(pygame.image.load(os.path.join('assets', 'dot.png')), (bound/50, bound/50)))
+        print("DOT_TEXTURE", Animations.DOT_TEXTURE)
+
 
     def __init__(self, attributes, screen):
         self.screen = screen
@@ -35,10 +38,14 @@ class Animations():
             else:
                 self.screen.blit(animation_return[0], animation_return[1])
 
-        for i in range(len(self.animations)):
+        animations_length = len(self.animations)
+        i = 0
+        while i < animations_length:
             if not self.animations[i].active:
                 self.animations.pop(i)
+                animations_length -= 1
                 i -= 1
+            i += 1
             
     def enqueue(self, animation):
         self.animations.append(animation)
@@ -66,6 +73,13 @@ class GenericAnimation():
         delta_time = self.target_pos_time - self.time
         self.pos[0] += x_distance / delta_time ** 0.8
         self.pos[1] += y_distance / delta_time ** 0.8
+
+    def adjust_scale(self):
+        y_distance = self.target_scale[1] - self.scale[1]
+        x_distance = self.target_scale[0] - self.scale[0]
+        delta_time = self.target_scale_time - self.time
+        self.scale[0] += x_distance / delta_time ** 0.8
+        self.scale[1] += y_distance / delta_time ** 0.8
         
     def tick(self):
         if self.target_rot == None and self.info.has_next_rotation():
@@ -88,6 +102,16 @@ class GenericAnimation():
                 self.target_pos = None
             else:
                 self.adjust_position()
+
+        if not self.target_scale == None:
+            if self.time >= self.target_scale_time:
+                self.scale[0], self.scale[1] = self.target_scale
+                self.target_scale_time = None
+                self.target_scale = None
+            else:
+                self.adjust_scale()
+        computed_surface = pygame.transform.smoothscale_by(computed_surface, self.scale)
+                
         #computed_surface = pygame.Surface.convert(computed_surface)
 
         self.time += 1
