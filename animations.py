@@ -71,15 +71,15 @@ class GenericAnimation():
         y_distance = self.target_pos[1] - self.pos[1]
         x_distance = self.target_pos[0] - self.pos[0]
         delta_time = self.target_pos_time - self.time
-        self.pos[0] += x_distance / delta_time ** 0.8
-        self.pos[1] += y_distance / delta_time ** 0.8
+        self.pos[0] += x_distance / delta_time ** 0.7
+        self.pos[1] += y_distance / delta_time ** 0.7
 
     def adjust_scale(self):
         y_distance = self.target_scale[1] - self.scale[1]
         x_distance = self.target_scale[0] - self.scale[0]
         delta_time = self.target_scale_time - self.time
-        self.scale[0] += x_distance / delta_time ** 0.8
-        self.scale[1] += y_distance / delta_time ** 0.8
+        self.scale[0] += x_distance / delta_time ** 0.7
+        self.scale[1] += y_distance / delta_time ** 0.7
         
     def tick(self):
         if self.target_rot == None and self.info.has_next_rotation():
