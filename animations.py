@@ -1,4 +1,3 @@
-import math
 import pygame
 import collections
 import os
@@ -21,7 +20,8 @@ class Animations():
         print("LOADING_AAA_TEXTURE", Animations.LOADING_AAA_TEXTURE)
         Animations.DOT_TEXTURE = pygame.Surface.convert_alpha(pygame.transform.smoothscale(pygame.image.load(os.path.join('assets', 'dot.png')), (bound/50, bound/50)))
         print("DOT_TEXTURE", Animations.DOT_TEXTURE)
-
+        Animations.DOT_LARGE_TEXTURE = pygame.Surface.convert_alpha(pygame.transform.smoothscale(pygame.image.load(os.path.join('assets', 'dot_large.png')), (bound, bound)))
+        print("DOT_LARGE_TEXTURE", Animations.DOT_LARGE_TEXTURE)
 
     def __init__(self, attributes, screen):
         self.screen = screen
@@ -71,15 +71,15 @@ class GenericAnimation():
         y_distance = self.target_pos[1] - self.pos[1]
         x_distance = self.target_pos[0] - self.pos[0]
         delta_time = self.target_pos_time - self.time
-        self.pos[0] += x_distance / delta_time ** 0.7
-        self.pos[1] += y_distance / delta_time ** 0.7
+        self.pos[0] += x_distance / delta_time ** 0.95
+        self.pos[1] += y_distance / delta_time ** 0.95
 
     def adjust_scale(self):
         y_distance = self.target_scale[1] - self.scale[1]
         x_distance = self.target_scale[0] - self.scale[0]
         delta_time = self.target_scale_time - self.time
-        self.scale[0] += x_distance / delta_time ** 0.7
-        self.scale[1] += y_distance / delta_time ** 0.7
+        self.scale[0] += x_distance / delta_time ** 0.95
+        self.scale[1] += y_distance / delta_time ** 0.95
         
     def tick(self):
         if self.target_rot == None and self.info.has_next_rotation():
