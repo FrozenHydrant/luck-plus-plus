@@ -18,12 +18,6 @@ class Main:
         self.background = (0, 0, 0)
 
         #self.animations.enqueue(GenericAnimation(AnimationInfo().set_health(Main.FPS*5).position(Main.FPS, (800, 300)).position(Main.FPS*2, (0, 200)).position(Main.FPS*5, (600, 800)).image(Main.FPS*0.5, self.animations.LOADING_AAA_TEXTURE)))
-        
-    def execute_function(self, **kwargs):
-        for k, v in kwargs.items():
-            if k == "function":
-                v(**kwargs)
-                return
 
     def change_background(self, **kwargs):
         self.background = kwargs['c']
@@ -43,7 +37,7 @@ class Main:
             self.event_time += 1
             if len(self.events) > 0 and self.event_time > self.events[0]['time']:
                 event = self.events.popleft()
-                self.execute_function(**event)
+                event['function'](**event)
                 self.event_time = 0
 
             # fill the screen with a color to wipe away anything from last frame
